@@ -2,24 +2,27 @@ package com.javaLive.action;
 
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.javaLive.dao.StudentDAO;
 import com.javaLive.entity.Student;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class DatabaseAction extends ActionSupport {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int studentID;
 	private String studentName, studentAddress;
-	// @Override
-	/*
-	 * public String execute() throws Exception { this.setResult(number1+number2);
-	 * return ActionSupport.SUCCESS; }
-	 */
-
+	private static final Logger logger = LoggerFactory.getLogger(DatabaseAction.class); // SLF4J
 	public String list() throws Exception {
 		return ActionSupport.SUCCESS;
 	}
 
 	public String insert() throws Exception {
+		logger.info("In the insert method()");
 		String result = null;
 		Student s = new Student();
 		s.setId(this.getStudentID());
@@ -33,6 +36,7 @@ public class DatabaseAction extends ActionSupport {
 	}
 
 	public String update() throws Exception {
+		logger.info("In the update method()");
 		String result = null;
 		Student s = new Student();
 		s.setId(this.getStudentID());
@@ -46,6 +50,7 @@ public class DatabaseAction extends ActionSupport {
 	}
 
 	public String delete() throws Exception {
+		logger.info("In the delete method()");
 		String result=null;
 		Student s=new Student();
 		s.setId(this.getStudentID());

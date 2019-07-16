@@ -20,9 +20,18 @@ public class SimpleInterceptor extends AbstractInterceptor {
 		/* let us do some pre-processing */
 		final ActionContext context = invocation.getInvocationContext();
 		String output = "Pre-Processing";
-		Map<String, Object> parameters = (Map<String, Object>) context.get(ActionContext.PARAMETERS);
+		@SuppressWarnings("unchecked")
+		Map<String, Object> parameters = (Map<String, Object>) context.get(ActionContext.PARAMETERS.toString());
 		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-			System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().toString());
+			String value=null;
+			Object obj = entry.getValue();
+	        if (obj instanceof String[]){
+	            String[] strArray = (String[]) obj;
+	            if (strArray!=null) {
+	            	value = strArray[0];
+	            }
+	    System.out.println("Key = " + entry.getKey() + ", Value = " + value );
+		}
 		}
 		 ValueStack stack=invocation.getStack(); 
 		    Iterator it =  stack.getRoot().iterator();
