@@ -28,7 +28,7 @@
 			<interceptor-ref name="defaultStackWithLog1" />
 			<interceptor-ref name="timer" />
 			<result name="input">/WEB-INF/jsp/index.jsp</result>
-			<result name="success">/WEB-INF/jsp/success.jsp</result>
+			<result name="success">/WEB-INF/jsp/StudentList.jsp</result>
 			<result name="error">/WEB-INF/jsp/index.jsp</result>
 		</action>
 		<action name="insert"

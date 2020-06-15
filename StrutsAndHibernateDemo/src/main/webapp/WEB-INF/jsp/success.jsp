@@ -8,8 +8,8 @@
         <title>Success Screen !!</title>
     </head>
     <body>
-           <p> Enterd numbers were: &nbsp; <s:property value="studentID" /> and &nbsp;<s:property value="studentName" />
-            And the result is: <h3><s:property value="studentAddress" /></h3>
+           <p> Entered values are Student ID: &nbsp; <s:property value="studentID" /> Student Name: &nbsp;<s:property value="studentName" />
+            And Student Address: <h3><s:property value="studentAddress" /></h3>
         </p>
     </body>
 </html>

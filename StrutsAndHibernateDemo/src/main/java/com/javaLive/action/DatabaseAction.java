@@ -1,23 +1,46 @@
 package com.javaLive.action;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.javaLive.dao.StudentDAO;
 import com.javaLive.entity.Student;
 import com.opensymphony.xwork2.ActionSupport;
-
-public class DatabaseAction extends ActionSupport {
+import javax.servlet.http.HttpServletRequest;
+public class DatabaseAction extends ActionSupport implements ServletRequestAware {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int studentID;
 	private String studentName, studentAddress;
+	private List<Student> studentList;
+	HttpSession mySession;
+	HttpServletRequest request;
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseAction.class); // SLF4J
+	public void setServletRequest(HttpServletRequest request) {
+		this.request=request;
+        mySession = this.request.getSession();
+    }
+	@SuppressWarnings("unchecked")
 	public String list() throws Exception {
+		mySession = request.getSession();
+		mySession.setAttribute("user", "JavaLive!!!");
+		StudentDAO stdao=new StudentDAO();
+		studentList= new ArrayList<Student>();
+		studentList= stdao.getStudentList();
+		mySession.setAttribute("studentList", studentList);
+		System.out.println(mySession.getAttribute("studentList").toString());
+		for(Student s:studentList) {
+			System.out.println(s.toString());
+		}
 		return ActionSupport.SUCCESS;
 	}
 
