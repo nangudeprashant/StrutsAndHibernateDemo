@@ -5,35 +5,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Students List</title>
 </head>
 <body>
-
-	Hi alll!!!!!!!!!!!!!!!!!!!!!!!!
-	<s:property value="#session.user" />
-	<s:iterator value="#session.studentList">
-		<fieldset>
-			<table width="40%">
+    User is 
+    <s:property value="#session.user" /><br> 
+	List of the students is as follows:
+	<br><br>
+	<table width="40%">
+		<tr>
+			<th>Student ID</th>
+			<th>Student Name</th>
+			<th>Student Address</th>
+		</tr>
+		<s:iterator value="#session.studentList">
+			<!-- <fieldset> -->
 				<tr>
 					<td><s:property value="id" /></td>
 					<td><s:property value="name" /></td>
 					<td><s:property value="address" /></td>
 				</tr>
-			</table>
-		</fieldset>
-	</s:iterator>
-	<%-- <s:iterator value="studentList">
-		<s:property value="id" />
-		<s:property value="name" />
-		<s:property value="address" />
-	</s:iterator> --%>
-	<%-- 	<s:iterator value="studentList" var="student">
-		<!-- here myList contains the list of objects -->
-		<s:property value="%{#student.id}" />
-		<br />
-		<s:property value="%{#student.name}" />
-		<br />
-		<s:property value="%{#student.address}" />
-	</s:iterator> --%>
+			<!-- </fieldset> -->
+		</s:iterator>
+	</table>
 </body>
 </html>
