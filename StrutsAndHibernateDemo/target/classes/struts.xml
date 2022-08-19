@@ -11,10 +11,11 @@
 		<interceptors>
 			<interceptor name="simpleInterceptor"
 				class="com.javaLive.interceptors.SimpleInterceptor" />
+				
 			<interceptor-stack name="defaultStackWithLog1">
 				<interceptor-ref name="defaultStack" />
 				<interceptor-ref name="logger" />
-				<interceptor-ref name="simpleInterceptor" />
+				<!-- <interceptor-ref name="simpleInterceptor" /> -->
 				<interceptor-ref name="timer" />
 			</interceptor-stack>
 		</interceptors>
@@ -24,9 +25,6 @@
 		</action>
 		<action name="list" class="com.javaLive.action.DatabaseAction"
 			method="list">
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="defaultStackWithLog1" />
-			<interceptor-ref name="timer" />
 			<result name="input">/WEB-INF/jsp/index.jsp</result>
 			<result name="success">/WEB-INF/jsp/StudentList.jsp</result>
 			<result name="error">/WEB-INF/jsp/index.jsp</result>

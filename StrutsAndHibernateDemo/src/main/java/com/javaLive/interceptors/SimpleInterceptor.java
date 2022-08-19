@@ -41,14 +41,14 @@ public class SimpleInterceptor extends AbstractInterceptor {
 		    while( it.hasNext() )
 		    {
 		        Object object = it.next();
-		        //DatabaseAction is my action class
+		        //DatabaseAction is the action class
 		        if( object instanceof DatabaseAction )
 		        {
 		        	DatabaseAction usuario = (DatabaseAction)object;
 		            usuario.setStudentAddress( usuario.getStudentAddress().toUpperCase() );
 		        }
 		    }
-		/* let us call action or next interceptor */
+		/* let us call action or next intercepter */
 		String result = invocation.invoke();
 
 		/* let us do some post-processing */

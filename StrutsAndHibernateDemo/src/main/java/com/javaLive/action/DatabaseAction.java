@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,7 @@ import com.javaLive.dao.StudentDAO;
 import com.javaLive.entity.Student;
 import com.opensymphony.xwork2.ActionSupport;
 import javax.servlet.http.HttpServletRequest;
+
 public class DatabaseAction extends ActionSupport implements ServletRequestAware {
 	/**
 	 * 
@@ -25,20 +27,24 @@ public class DatabaseAction extends ActionSupport implements ServletRequestAware
 	HttpSession mySession;
 	HttpServletRequest request;
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseAction.class); // SLF4J
+
 	public void setServletRequest(HttpServletRequest request) {
-		this.request=request;
-        mySession = this.request.getSession();
-    }
+		this.request = request;
+		mySession = this.request.getSession();
+	}
+
 	@SuppressWarnings("unchecked")
+	@SkipValidation // VVIMP annotation to exclude this method from validation as validation is not
+					// require for student list.
 	public String list() throws Exception {
 		mySession = request.getSession();
-		mySession.setAttribute("user", "JavaLive!!!");
-		StudentDAO stdao=new StudentDAO();
-		studentList= new ArrayList<Student>();
-		studentList= stdao.getStudentList();
+		mySession.setAttribute("user", "ITaspirants");
+		StudentDAO stdao = new StudentDAO();
+		studentList = new ArrayList<Student>();
+		studentList = stdao.getStudentList();
 		mySession.setAttribute("studentList", studentList);
 		System.out.println(mySession.getAttribute("studentList").toString());
-		for(Student s:studentList) {
+		for (Student s : studentList) {
 			System.out.println(s.toString());
 		}
 		return ActionSupport.SUCCESS;
@@ -46,12 +52,12 @@ public class DatabaseAction extends ActionSupport implements ServletRequestAware
 
 	public String insert() throws Exception {
 		logger.info("In the insert method()");
-		String result = null;
 		Student s = new Student();
 		s.setId(this.getStudentID());
 		s.setName(this.getStudentName());
 		s.setAddress(this.getStudentAddress());
 		if (new StudentDAO().createStudent(s)) {
+			mySession.setAttribute("operation", "inserted");
 			return ActionSupport.SUCCESS;
 		} else {
 			return ActionSupport.ERROR;
@@ -60,12 +66,12 @@ public class DatabaseAction extends ActionSupport implements ServletRequestAware
 
 	public String update() throws Exception {
 		logger.info("In the update method()");
-		String result = null;
 		Student s = new Student();
 		s.setId(this.getStudentID());
 		s.setName(this.getStudentName());
 		s.setAddress(this.getStudentAddress());
 		if (new StudentDAO().updateStudent(s)) {
+			mySession.setAttribute("operation", "updated");
 			return ActionSupport.SUCCESS;
 		} else {
 			return ActionSupport.ERROR;
@@ -74,15 +80,14 @@ public class DatabaseAction extends ActionSupport implements ServletRequestAware
 
 	public String delete() throws Exception {
 		logger.info("In the delete method()");
-		String result=null;
-		Student s=new Student();
+		Student s = new Student();
 		s.setId(this.getStudentID());
 		s.setName(this.getStudentName());
 		s.setAddress(this.getStudentAddress());
-		if(new StudentDAO().deleteStudent(s)) {
-		return  ActionSupport.SUCCESS;
-		}
-		else {
+		if (new StudentDAO().deleteStudent(s)) {
+			mySession.setAttribute("operation", "deleted");
+			return ActionSupport.SUCCESS;
+		} else {
 			return ActionSupport.ERROR;
 		}
 	}
